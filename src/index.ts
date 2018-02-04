@@ -6,9 +6,9 @@ const SRC_FICHIER = "../res/imageProduit/";
 
 
 
-Catalogue.init(SRC_FICHIER);
 
-let catalogue = new Catalogue();
+
+let catalogue = Catalogue.init(SRC_FICHIER);
 
 
 let controller = new AccueilController(catalogue);
