@@ -71,17 +71,11 @@
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Produit_1 = __webpack_require__(1);
-var Catalogue_1 = __webpack_require__(2);
+var Catalogue_1 = __webpack_require__(1);
 var AccueilController_1 = __webpack_require__(3);
 var SRC_FICHIER = "../res/imageProduit/";
-var produit1 = new Produit_1.Produit("KratosArme", "La grande et majestueuse arme de Kratos", 5, SRC_FICHIER + "kratos.jpg");
-var produit2 = new Produit_1.Produit("KratosArme22222", "22222La grande et majestueuse arme de Kratos", 5, SRC_FICHIER + "kratos.jpg");
-var produit3 = new Produit_1.Produit("KratosArme3333", "333333La grande et majestueuse arme de Kratos", 5, SRC_FICHIER + "kratos.jpg");
+Catalogue_1.Catalogue.init(SRC_FICHIER);
 var catalogue = new Catalogue_1.Catalogue();
-catalogue.addProduit(produit1);
-catalogue.addProduit(produit2);
-catalogue.addProduit(produit3);
 var controller = new AccueilController_1.AccueilController(catalogue);
 controller.init();
 
@@ -93,25 +87,7 @@ controller.init();
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Produit = /** @class */function () {
-    function Produit(nom, description, prix, srcImage) {
-        this.nom = nom;
-        this.description = description;
-        this.prix = prix;
-        this.srcImage = srcImage;
-    }
-    return Produit;
-}();
-exports.Produit = Produit;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", { value: true });
+var Produit_1 = __webpack_require__(2);
 var Catalogue = /** @class */function () {
     function Catalogue(produitList) {
         if (produitList) {
@@ -133,9 +109,38 @@ var Catalogue = /** @class */function () {
         enumerable: true,
         configurable: true
     });
+    Catalogue.init = function (srcFichier) {
+        var produit1 = new Produit_1.Produit("KratosArme", "La grande et majestueuse arme de Kratos", 5, srcFichier + "kratos.jpg");
+        var produit2 = new Produit_1.Produit("KratosArme22222", "22222La grande et majestueuse arme de Kratos", 5, srcFichier + "kratos.jpg");
+        var produit3 = new Produit_1.Produit("KratosArme3333", "333333La grande et majestueuse arme de Kratos", 5, srcFichier + "kratos.jpg");
+        var catalogue = new Catalogue();
+        catalogue.addProduit(produit1);
+        catalogue.addProduit(produit2);
+        catalogue.addProduit(produit3);
+        return catalogue;
+    };
     return Catalogue;
 }();
 exports.Catalogue = Catalogue;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Produit = /** @class */function () {
+    function Produit(nom, description, prix, srcImage) {
+        this.nom = nom;
+        this.description = description;
+        this.prix = prix;
+        this.srcImage = srcImage;
+    }
+    return Produit;
+}();
+exports.Produit = Produit;
 
 /***/ }),
 /* 3 */
