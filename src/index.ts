@@ -1,14 +1,16 @@
 import {Produit} from "./Models/Produit";
-import {Panier} from "./Models/Panier";
+import {Catalogue} from "./Models/Catalogue";
+import {AccueilController} from "./Controllers/AccueilController";
 
-
-let eza = new Produit("444","4",5);
-let panier = new Panier();
-
-panier.addProduit(eza);
-panier.addProduits(eza,3);
-console.log(panier.produitList);
+const SRC_FICHIER = "../res/imageProduit/";
 
 
 
+Catalogue.init(SRC_FICHIER);
 
+let catalogue = new Catalogue();
+
+
+let controller = new AccueilController(catalogue);
+
+controller.init();
