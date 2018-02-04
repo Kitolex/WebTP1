@@ -1,4 +1,4 @@
-import {Produit} from "./Models/Produit";
+
 import {Catalogue} from "./Models/Catalogue";
 import {AccueilController} from "./Controllers/AccueilController";
 
