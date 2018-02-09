@@ -1,13 +1,12 @@
-import {Catalogue} from "../Models/Catalogue";
-import {CatalogueController} from "../Controllers/CatalogueController";
+import {AdminPageController} from "../Controllers/AdminPageController";
 import {Main} from "../index";
-import {User} from "../Models/User";
+import {ConnexionController} from "../Controllers/ConnexionController";
+import {Catalogue} from "../Models/Catalogue";
 
-export class CatalogueView{
+export class AdminPageView{
 
+    private controller : AdminPageController;
     private catalogue : Catalogue;
-    private controller : CatalogueController;
-
 
 
     constructor(catalogue: Catalogue) {
@@ -15,9 +14,6 @@ export class CatalogueView{
     }
 
     public init(page :number){
-
-        console.log(page);
-
         let affichageFinalCatalogue :string ="";
 
         let sizeCatalogue = this.catalogue.produitList.length;
@@ -28,29 +24,29 @@ export class CatalogueView{
         for(let i :number =indiceDebutCatalogue ;i<indiceFinCatalogue;i++){
             affichageFinalCatalogue +=
                 '<div class="container">'+
-                    '<div class="row" style="background-color:lavender;">'+
-                        '<div class="col-xs-9" >'+
-                            '<img src="'+this.catalogue.getProduit(i).srcImage+'" class="img-responsive">'+
-                        '</div>'+
-                        '<div class="col">'+
-                            '<div class="well" class="float-right">'+
-                                '<h5>'+this.catalogue.getProduit(i).nom+'</h5>'+
-                                '<h6 class="descri arme">'+this.catalogue.getProduit(i).description.slice(0,this.catalogue.MAX_CHAR_DESCRIPTION)+'...</h6>'+
-                                '<button id ="description'+this.catalogue.getProduit(i).nom+'" type="button" class="btn btn-link"> En savoir plus</button>'+
-                                '<h5>'+this.catalogue.getProduit(i).prix+' $</h5> ' +
-                                '<button id="panier'+this.catalogue.getProduit(i).nom+'" type="button" class="btn btn-primary btn-sm">Ajouter au Panier</button>'+
-                            '</div>'+
-                        '</div>'+
-                    '</div>'+
+                '<div class="row" style="background-color:lavender;">'+
+                '<div class="col-xs-9" >'+
+                '<img src="'+this.catalogue.getProduit(i).srcImage+'" class="img-responsive">'+
+                '</div>'+
+                '<div class="col">'+
+                '<div class="well" class="float-right">'+
+                '<h5>'+this.catalogue.getProduit(i).nom+'</h5>'+
+                '<h6 class="descri arme">'+this.catalogue.getProduit(i).description.slice(0,this.catalogue.MAX_CHAR_DESCRIPTION)+'...</h6>'+
+                '<h5>'+this.catalogue.getProduit(i).prix+' $</h5> ' +
+                '<button id="update'+this.catalogue.getProduit(i).nom+'">Modifier</button>'+
+                '<button id="delete'+this.catalogue.getProduit(i).nom+'">Supprimer</button>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
                 '</div>';
 
         }
 
 
         affichageFinalCatalogue += '<div class="text-center">'+
-                                        '<div class="btn-group">'+
-                                            '<button type="button" class="btn btn-dark" id="DebutButton"><<</button>'+
-                                            '<button type="button" class="btn btn-dark" id="PrecedentButton"><</button>';
+            '<div class="btn-group">'+
+            '<button type="button" class="btn btn-dark" id="DebutButton"><<</button>'+
+            '<button type="button" class="btn btn-dark" id="PrecedentButton"><</button>';
 
         for(let i :number =2 ;i>0;i--){
             if(page>i){
@@ -73,8 +69,8 @@ export class CatalogueView{
         document.getElementById(Main.ID_MAIN_DIV).innerHTML = affichageFinalCatalogue;
 
         for(let i :number =indiceDebutCatalogue ;i<indiceFinCatalogue;i++){
-            document.getElementById("panier"+this.catalogue.getProduit(i).nom).addEventListener("click", (e:Event) =>this.controller.buttonAddPanier(this.catalogue.getProduit(i)));
-            document.getElementById("description"+this.catalogue.getProduit(i).nom).addEventListener("click", (e:Event) =>this.controller.buttonDescriptionDetaille(this.catalogue.getProduit(i)));
+            document.getElementById("update"+this.catalogue.getProduit(i).nom).addEventListener("click", (e:Event) =>this.controller.modifierProduit(this.catalogue.getProduit(i)));
+            document.getElementById("delete"+this.catalogue.getProduit(i).nom).addEventListener("click", (e:Event) =>this.controller.supprimerProduit(this.catalogue.getProduit(i),page));
         }
 
         if(page==1){
@@ -110,7 +106,7 @@ export class CatalogueView{
     }
 
 
-    public setController(controller : CatalogueController,main : Main) {
+    public setController(controller : AdminPageController,main : Main) {
         this.controller=controller;
         controller.setMain(main);
     }

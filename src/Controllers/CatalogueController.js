@@ -5,7 +5,6 @@ var CatalogueController = /** @class */ (function () {
     }
     CatalogueController.prototype.buttonAddPanier = function (produit) {
         this.main.panier.addProduit(produit);
-        console.log(this.main.panier);
     };
     CatalogueController.prototype.buttonDescriptionDetaille = function (produit) {
         this.main.showDescription(produit);

@@ -7,7 +7,6 @@ export class CatalogueController{
 
     public buttonAddPanier(produit : Produit){
         this.main.panier.addProduit(produit);
-        console.log(this.main.panier);
     }
 
     public buttonDescriptionDetaille(produit : Produit){

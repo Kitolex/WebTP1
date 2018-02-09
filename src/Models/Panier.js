@@ -11,6 +11,7 @@ var Panier = /** @class */ (function () {
         else {
             this._produitList.set(produit, 1);
         }
+        console.log(this.produitList);
     };
     Panier.prototype.addProduit = function (produit) {
         this.addProduits(produit, 1);
@@ -40,6 +41,26 @@ var Panier = /** @class */ (function () {
     });
     Panier.prototype.supprimerPanier = function () {
         this._produitList.clear();
+    };
+    Panier.prototype.getPrixTotalHT = function () {
+        var prix = 0;
+        this.produitList.forEach(function (value, key, map) {
+            prix += value * key.prix;
+        });
+        return prix;
+    };
+    Panier.prototype.getPrixTotalTTC = function () {
+        var prix = 0;
+        this.produitList.forEach(function (value, key, map) {
+            prix += value * (key.prix * (1 + key.taxe / 100));
+        });
+        return prix;
+    };
+    Panier.prototype.clear = function () {
+        this.produitList.clear();
+    };
+    Panier.prototype.setNumberProduit = function (produit, number) {
+        this.produitList.set(produit, number);
     };
     return Panier;
 }());

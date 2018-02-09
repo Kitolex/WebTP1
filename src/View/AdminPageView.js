@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("../index");
-var CatalogueView = /** @class */ (function () {
-    function CatalogueView(catalogue) {
+var AdminPageView = /** @class */ (function () {
+    function AdminPageView(catalogue) {
         this.catalogue = catalogue;
     }
-    CatalogueView.prototype.init = function (page) {
+    AdminPageView.prototype.init = function (page) {
         var _this = this;
-        console.log(page);
         var affichageFinalCatalogue = "";
         var sizeCatalogue = this.catalogue.produitList.length;
         var indiceDebutCatalogue = (page - 1) * 10;
@@ -23,9 +22,9 @@ var CatalogueView = /** @class */ (function () {
                     '<div class="well" class="float-right">' +
                     '<h5>' + this.catalogue.getProduit(i).nom + '</h5>' +
                     '<h6 class="descri arme">' + this.catalogue.getProduit(i).description.slice(0, this.catalogue.MAX_CHAR_DESCRIPTION) + '...</h6>' +
-                    '<button id ="description' + this.catalogue.getProduit(i).nom + '" type="button" class="btn btn-link"> En savoir plus</button>' +
                     '<h5>' + this.catalogue.getProduit(i).prix + ' $</h5> ' +
-                    '<button id="panier' + this.catalogue.getProduit(i).nom + '" type="button" class="btn btn-primary btn-sm">Ajouter au Panier</button>' +
+                    '<button id="update' + this.catalogue.getProduit(i).nom + '">Modifier</button>' +
+                    '<button id="delete' + this.catalogue.getProduit(i).nom + '">Supprimer</button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -51,8 +50,8 @@ var CatalogueView = /** @class */ (function () {
         affichageFinalCatalogue += '</div></div>';
         document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = affichageFinalCatalogue;
         var _loop_1 = function (i) {
-            document.getElementById("panier" + this_1.catalogue.getProduit(i).nom).addEventListener("click", function (e) { return _this.controller.buttonAddPanier(_this.catalogue.getProduit(i)); });
-            document.getElementById("description" + this_1.catalogue.getProduit(i).nom).addEventListener("click", function (e) { return _this.controller.buttonDescriptionDetaille(_this.catalogue.getProduit(i)); });
+            document.getElementById("update" + this_1.catalogue.getProduit(i).nom).addEventListener("click", function (e) { return _this.controller.modifierProduit(_this.catalogue.getProduit(i)); });
+            document.getElementById("delete" + this_1.catalogue.getProduit(i).nom).addEventListener("click", function (e) { return _this.controller.supprimerProduit(_this.catalogue.getProduit(i), page); });
         };
         var this_1 = this;
         for (var i = indiceDebutCatalogue; i < indiceFinCatalogue; i++) {
@@ -92,10 +91,10 @@ var CatalogueView = /** @class */ (function () {
         }
         document.getElementById("pageActuel").setAttribute("disabled", "true");
     };
-    CatalogueView.prototype.setController = function (controller, main) {
+    AdminPageView.prototype.setController = function (controller, main) {
         this.controller = controller;
         controller.setMain(main);
     };
-    return CatalogueView;
+    return AdminPageView;
 }());
-exports.CatalogueView = CatalogueView;
+exports.AdminPageView = AdminPageView;

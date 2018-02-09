@@ -1,11 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("../index");
-var DescriptionProduitView = /** @class */ (function () {
-    function DescriptionProduitView(produit) {
+var ProduitUpdtateView = /** @class */ (function () {
+    function ProduitUpdtateView(produit) {
         this.produit = produit;
     }
-    DescriptionProduitView.prototype.init = function () {
+    ProduitUpdtateView.prototype.setController = function (controller, main) {
+        this.controller = controller;
+        this.controller.setMain(main);
+    };
+    ProduitUpdtateView.prototype.init = function () {
         var _this = this;
         var affichageProduitsFinal = '<div class="container">' +
             '<div class="row"  style="background-color:lavender;">' +
@@ -15,10 +19,10 @@ var DescriptionProduitView = /** @class */ (function () {
             '<div class="col">' +
             '<div class="well" class="float-right">' +
             '<div class="text">' +
-            '<h5>' + this.produit.nom + '</h5>' +
-            '<h6 class="descri arme">' + this.produit.description + '</h6>' +
-            '<h5>' + this.produit.prix + ' $</h5>' +
-            '<button id="panier' + this.produit.nom + '" type="button" class="btn btn-primary btn-sm">Ajouter au Panier</button>' +
+            '<input id="titre" value="' + this.produit.nom + '"><br>' +
+            '<textarea id="description" rows="4" cols="50">' + this.produit.description + '</textarea><br>' +
+            '<input id="prix" value="' + this.produit.prix + '"><br>' +
+            '<button id="modifier" type="button" class="btn btn-primary btn-sm">Modifer</button>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -30,13 +34,9 @@ var DescriptionProduitView = /** @class */ (function () {
             '<div>' +
             '</div>';
         document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = affichageProduitsFinal;
-        document.getElementById("panier" + this.produit.nom).addEventListener("click", function (e) { return _this.controller.addPanier(_this.produit); });
+        document.getElementById("modifier").addEventListener("click", function (e) { return _this.controller.updateProduit(document.getElementById("titre").value, document.getElementById("description").value, document.getElementById("prix").value, _this.produit); });
         document.getElementById("retourCatalogue").addEventListener("click", function (e) { return _this.controller.retourAccueil(); });
     };
-    DescriptionProduitView.prototype.setController = function (controller, main) {
-        this.controller = controller;
-        controller.setMain(main);
-    };
-    return DescriptionProduitView;
+    return ProduitUpdtateView;
 }());
-exports.DescriptionProduitView = DescriptionProduitView;
+exports.ProduitUpdtateView = ProduitUpdtateView;
