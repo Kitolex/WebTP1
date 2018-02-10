@@ -1,21 +1,17 @@
 import {Main} from "../index";
 import {Produit} from "../Models/Produit";
+import {Controller} from "./Controller";
 
-export class DescriptionProduitController{
-
-    private main : Main;
-
+export class DescriptionProduitController extends Controller{
 
 
-    public setMain(main :Main){
-        this.main=main;
-    }
 
     public addPanier(produit: Produit) {
-        this.main.panier.addProduit(produit);
+        this.getMain().panier.addProduit(produit);
+        document.getElementById(Main.ID_PANIER_NUMBER_DIV).innerText=this.getMain().panier.produitList.size+'';
     }
 
     public retourAccueil(){
-        this.main.showCatalogue();
+        this.getMain().showCatalogue();
     }
 }

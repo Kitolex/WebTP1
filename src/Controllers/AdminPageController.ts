@@ -1,22 +1,21 @@
-import {Main} from "../index";
 import {Produit} from "../Models/Produit";
+import {Controller} from "./Controller";
 
-export class AdminPageController{
+export class AdminPageController extends Controller{
 
-    private main : Main;
-
-    public setMain(main :Main){
-        this.main=main;
-    }
 
     supprimerProduit(produit: Produit,page:number) {
         if(confirm("Etes vous sur de vouloir le supprimer")){
-           this.main.catalogue.deleteProduit(produit);
-           this.main.showAdminPage(page);
+            this.getMain().catalogue.deleteProduit(produit);
+            this.getMain().showAdminPage(page);
         }
     }
 
     modifierProduit(produit: Produit) {
-        this.main.showProduitUpdate(produit);
+        this.getMain().showProduitUpdate(produit);
+    }
+
+    createProduit() {
+        this.getMain().showCreateProduit();
     }
 }

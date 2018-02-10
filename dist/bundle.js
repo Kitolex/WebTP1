@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 18);
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,97 +71,188 @@
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Catalogue_1 = __webpack_require__(2);
-var CatalogueView_1 = __webpack_require__(3);
-var Panier_1 = __webpack_require__(4);
-var CatalogueController_1 = __webpack_require__(5);
-var DescriptionProduitView_1 = __webpack_require__(6);
-var DescriptionProduitController_1 = __webpack_require__(7);
-var PanierView_1 = __webpack_require__(8);
-var PanierController_1 = __webpack_require__(9);
-var ConnexionView_1 = __webpack_require__(10);
-var ConnexionController_1 = __webpack_require__(11);
-var User_1 = __webpack_require__(1);
-var AdminPageController_1 = __webpack_require__(12);
-var AdminPageView_1 = __webpack_require__(13);
-var ProduitUpdateView_1 = __webpack_require__(14);
-var ProduitUpdateController_1 = __webpack_require__(15);
-var ConfirmPageView_1 = __webpack_require__(16);
-var ConfirmPageController_1 = __webpack_require__(17);
+var Catalogue_1 = __webpack_require__(3);
+var CatalogueView_1 = __webpack_require__(5);
+var Panier_1 = __webpack_require__(6);
+var CatalogueController_1 = __webpack_require__(7);
+var DescriptionProduitView_1 = __webpack_require__(8);
+var DescriptionProduitController_1 = __webpack_require__(9);
+var PanierView_1 = __webpack_require__(10);
+var PanierController_1 = __webpack_require__(11);
+var ConnexionView_1 = __webpack_require__(12);
+var ConnexionController_1 = __webpack_require__(13);
+var User_1 = __webpack_require__(2);
+var AdminPageController_1 = __webpack_require__(14);
+var AdminPageView_1 = __webpack_require__(15);
+var ProduitUpdateView_1 = __webpack_require__(16);
+var ProduitUpdateController_1 = __webpack_require__(17);
+var ConfirmPageView_1 = __webpack_require__(18);
+var ConfirmPageController_1 = __webpack_require__(19);
+var CreateProduitView_1 = __webpack_require__(20);
+var CreateProduitController_1 = __webpack_require__(21);
+/**
+ * Appeler au lancement permet d'instancier la fonction main
+ */
 window.onload = function () {
     console.log("ONLOAD");
     var main = new Main();
     main.init();
 };
+/**
+ * Cette classe est la classe principal du programme c'est celle qui contient les données importance au site et les fonctions pour afficher le contenu
+ */
 var Main = /** @class */function () {
     function Main() {}
+    /**
+     * Méthode qui permet d'initialiser les variable de la class ainsi que les événements de la barre de navigation
+     */
     Main.prototype.init = function () {
         var _this = this;
-        this.catalogue = Catalogue_1.Catalogue.init();
-        this.panier = new Panier_1.Panier();
-        this.listUser = new Array();
-        this.listUser.push(new User_1.User("admin", "admin"));
+        this.catalogue = Catalogue_1.Catalogue.init(); //on init le catalogue avec des produits pré-créer
+        this.panier = new Panier_1.Panier(); // on initialise le catalogue
+        this.listUser = new Array(); //on initialise la liste d'utilisateur
+        this.listUser.push(new User_1.User("admin", "admin")); //on créer l'utilisateur qui peut se connecter (Dans ce cas il n'y en as qu'un, mais au moins la liste est prête si besoin de modification pour prochaine TP
         document.getElementById("panier").addEventListener("click", function (e) {
             return _this.showPanier();
-        });
+        }); //on créer l'événement du bouton panier
         document.getElementById("connexion").addEventListener("click", function (e) {
-            return _this.showConnexion();
-        });
+            return _this.buttonConnexion();
+        }); //on créer l'évenement du bouton connexion
         document.getElementById("accueil").addEventListener("click", function (e) {
-            return _this.showCatalogue();
-        });
-        this.showCatalogue();
+            return _this.showAccueil();
+        }); //on créer l'évenement du bouton accueil
+        this.showCatalogue(); //on affiche le catalogue qui sert de page d'accueil du site
     };
+    /**
+     * Méthode qui permet d'afficher le catalogue
+     */
     Main.prototype.showCatalogue = function () {
-        var catalogueView = new CatalogueView_1.CatalogueView(this.catalogue);
-        catalogueView.setController(new CatalogueController_1.CatalogueController(), this);
-        catalogueView.init(1);
+        var catalogueView = new CatalogueView_1.CatalogueView(this.catalogue); //on initialise la vue du catalogue
+        catalogueView.setController(new CatalogueController_1.CatalogueController(), this); //on set le controller de la vue
+        catalogueView.init(1); //on affiche le contenu de la page
     };
+    /**
+     * Méthode qui permet d'afficher la description détaillé du produit
+     * @param {Produit} produit
+     *  produit que l'on veut voir sa description détaillé
+     */
     Main.prototype.showDescription = function (produit) {
-        var descriptionView = new DescriptionProduitView_1.DescriptionProduitView(produit);
-        descriptionView.setController(new DescriptionProduitController_1.DescriptionProduitController(), this);
-        descriptionView.init();
+        var descriptionView = new DescriptionProduitView_1.DescriptionProduitView(produit); //on initialise la vue de la description de produit
+        descriptionView.setController(new DescriptionProduitController_1.DescriptionProduitController(), this); //on set le controller de la vue
+        descriptionView.init(); //on affiche le contenu de la page
     };
+    /**
+     * Méthode qui permet d'afficher le panier si il n'est pas vide
+     */
     Main.prototype.showPanier = function () {
         if (this.panier.produitList.size == 0) {
-            alert("Panier Vide");
+            alert("Panier Vide"); //si vide on prévient l'utilisateur
         } else {
-            var panierView = new PanierView_1.PanierView(this.panier);
-            panierView.setController(new PanierController_1.PanierController(), this);
-            panierView.init();
+            var panierView = new PanierView_1.PanierView(this.panier); //on initialise la vue du panier
+            panierView.setController(new PanierController_1.PanierController(), this); //on set le controller de la vue
+            panierView.init(); //on affiche le contenu de la page
         }
     };
+    /**
+     * Méthode qui permet d'afficher la page pour pouvoir se connecter
+     */
     Main.prototype.showConnexion = function () {
-        var connexionView = new ConnexionView_1.ConnexionView();
-        connexionView.setController(new ConnexionController_1.ConnexionController(), this);
-        connexionView.init();
+        var connexionView = new ConnexionView_1.ConnexionView(); //on initialise la vue pour se connecter
+        connexionView.setController(new ConnexionController_1.ConnexionController(), this); //on set le controller de la vue
+        connexionView.init(); //on affiche le contenu de la page
     };
+    /**
+     * Méthode qui permet d'afficher la page de gestion du catalogue d'un admin
+     * @param {number} page
+     */
     Main.prototype.showAdminPage = function (page) {
         var adminPageView = new AdminPageView_1.AdminPageView(this.catalogue);
         adminPageView.setController(new AdminPageController_1.AdminPageController(), this);
-        adminPageView.init(page || 1);
+        adminPageView.init(page || 1); //on affiche le contenu de la page
     };
     Main.prototype.showProduitUpdate = function (produit) {
         var produitUpdtateView = new ProduitUpdateView_1.ProduitUpdtateView(produit);
         produitUpdtateView.setController(new ProduitUpdateController_1.ProduitUpdateController(), this);
-        produitUpdtateView.init();
+        produitUpdtateView.init(); //on affiche le contenu de la page
     };
     Main.prototype.showConfirmPage = function () {
         var confirmPageView = new ConfirmPageView_1.ConfirmPageView(this.getRandomBoolean());
         confirmPageView.setController(new ConfirmPageController_1.ConfirmPageController(), this);
-        confirmPageView.init();
+        confirmPageView.init(); //on affiche le contenu de la page
+    };
+    Main.prototype.showCreateProduit = function () {
+        var createProduitView = new CreateProduitView_1.CreateProduitView();
+        createProduitView.setController(new CreateProduitController_1.CreateProduitController(), this);
+        createProduitView.init(); //on affiche le contenu de la page
     };
     Main.prototype.getRandomBoolean = function () {
         return Math.random() * 2 > 1;
     };
+    Main.prototype.buttonConnexion = function () {
+        if (this.user == null) {
+            this.showConnexion();
+        } else {
+            if (confirm("Etes vous sur de vouloir vous déconnecter ?")) {
+                this.user = null;
+                document.getElementById("connexion").innerHTML = "Connexion";
+                document.getElementById("panier").style.visibility = "visible";
+                this.showCatalogue();
+            }
+        }
+    };
+    Main.prototype.showAccueil = function () {
+        if (this.user == null) {
+            this.showCatalogue();
+        } else {
+            this.showAdminPage(1);
+        }
+    };
+    /**
+     * constante qui permet de récupérer l'emplacement des images de produit du site
+     * @type {string}
+     */
     Main.SRC_FICHIER = "../res/imageProduit/";
+    /**
+     * constante qui permet de récupérer le nom de la div principal pour placer le contenu du site
+     * @type {string}
+     */
     Main.ID_MAIN_DIV = "main";
+    /**
+     * constante qui permet de récupérer le nom de la div qui contient le nombre d'élement au panier
+     * @type {string}
+     */
+    Main.ID_PANIER_NUMBER_DIV = "numberProduitPanier";
+    /**
+     * constante qui permet de récupérer le prix de livraison du site
+     * @type {number}
+     */
+    Main.COUT_LIVRAISON = 5;
     return Main;
 }();
 exports.Main = Main;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Controller = /** @class */function () {
+    function Controller() {}
+    Controller.prototype.setMain = function (main) {
+        this.main = main;
+    };
+    Controller.prototype.getMain = function () {
+        return this.main;
+    };
+    return Controller;
+}();
+exports.Controller = Controller;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -187,14 +278,14 @@ var User = /** @class */function () {
 exports.User = User;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Produit_1 = __webpack_require__(19);
+var Produit_1 = __webpack_require__(4);
 var index_1 = __webpack_require__(0);
 var Catalogue = /** @class */function () {
     function Catalogue(produitList) {
@@ -239,7 +330,27 @@ var Catalogue = /** @class */function () {
 exports.Catalogue = Catalogue;
 
 /***/ }),
-/* 3 */
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Produit = /** @class */function () {
+    function Produit(nom, description, prix, srcImage, taxe) {
+        this.nom = nom;
+        this.description = description;
+        this.prix = prix;
+        this.srcImage = srcImage;
+        this.taxe = taxe;
+    }
+    return Produit;
+}();
+exports.Produit = Produit;
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -342,7 +453,7 @@ var CatalogueView = /** @class */function () {
 exports.CatalogueView = CatalogueView;
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -413,30 +524,47 @@ var Panier = /** @class */function () {
 exports.Panier = Panier;
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+var __extends = this && this.__extends || function () {
+    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+        d.__proto__ = b;
+    } || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
 Object.defineProperty(exports, "__esModule", { value: true });
-var CatalogueController = /** @class */function () {
-    function CatalogueController() {}
+var index_1 = __webpack_require__(0);
+var Controller_1 = __webpack_require__(1);
+var CatalogueController = /** @class */function (_super) {
+    __extends(CatalogueController, _super);
+    function CatalogueController() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
     CatalogueController.prototype.buttonAddPanier = function (produit) {
-        this.main.panier.addProduit(produit);
+        this.getMain().panier.addProduit(produit);
+        document.getElementById(index_1.Main.ID_PANIER_NUMBER_DIV).innerText = this.getMain().panier.produitList.size + '';
     };
     CatalogueController.prototype.buttonDescriptionDetaille = function (produit) {
-        this.main.showDescription(produit);
-    };
-    CatalogueController.prototype.setMain = function (main) {
-        this.main = main;
+        this.getMain().showDescription(produit);
     };
     return CatalogueController;
-}();
+}(Controller_1.Controller);
 exports.CatalogueController = CatalogueController;
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -468,30 +596,47 @@ var DescriptionProduitView = /** @class */function () {
 exports.DescriptionProduitView = DescriptionProduitView;
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var DescriptionProduitController = /** @class */function () {
-    function DescriptionProduitController() {}
-    DescriptionProduitController.prototype.setMain = function (main) {
-        this.main = main;
+var __extends = this && this.__extends || function () {
+    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+        d.__proto__ = b;
+    } || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+var index_1 = __webpack_require__(0);
+var Controller_1 = __webpack_require__(1);
+var DescriptionProduitController = /** @class */function (_super) {
+    __extends(DescriptionProduitController, _super);
+    function DescriptionProduitController() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
     DescriptionProduitController.prototype.addPanier = function (produit) {
-        this.main.panier.addProduit(produit);
+        this.getMain().panier.addProduit(produit);
+        document.getElementById(index_1.Main.ID_PANIER_NUMBER_DIV).innerText = this.getMain().panier.produitList.size + '';
     };
     DescriptionProduitController.prototype.retourAccueil = function () {
-        this.main.showCatalogue();
+        this.getMain().showCatalogue();
     };
     return DescriptionProduitController;
-}();
+}(Controller_1.Controller);
 exports.DescriptionProduitController = DescriptionProduitController;
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -509,15 +654,15 @@ var PanierView = /** @class */function () {
         this.panier.produitList.forEach(function (value, key, map) {
             affichageProduitsFinal += '<img src="' + key.srcImage + '"> ' + '<p id="nom' + key.nom + '" >' + key.nom + '</p> ' + '<p>' + key.description.slice(0, 30) + '...</p>' + '<button id="enlever' + key.nom + '">-</button><br>' + '<input id="nombre' + key.nom + '" value="' + value + '"><br>' + '<button id="ajouter' + key.nom + '">+</button><br>';
         });
-        affichageProduitsFinal += '<p>' + this.panier.getPrixTotalHT() + '</p>';
-        affichageProduitsFinal += '<p>' + (this.panier.getPrixTotalTTC() - this.panier.getPrixTotalHT()) + '</p>';
-        affichageProduitsFinal += '<p>cout de livraison</p>';
-        affichageProduitsFinal += '<p>' + this.panier.getPrixTotalTTC() + '</p>';
+        affichageProduitsFinal += '<p id="prixTotalHT">' + this.panier.getPrixTotalHT() + '</p>';
+        affichageProduitsFinal += '<p id="ajoutTaxe">' + (this.panier.getPrixTotalTTC() - this.panier.getPrixTotalHT()) + '</pid>';
+        affichageProduitsFinal += '<p id="livraison">' + index_1.Main.COUT_LIVRAISON + '</p>';
+        affichageProduitsFinal += '<p id="prixTotalTTC">' + this.panier.getPrixTotalTTC() + '</p>';
         affichageProduitsFinal += '<button id="acheter">Acheter</button>';
         document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = affichageProduitsFinal;
         this.panier.produitList.forEach(function (value, key, map) {
             document.getElementById("nombre" + key.nom).addEventListener("input", function (e) {
-                return _this.controller.changeNumberProduit(key, Number.parseInt(document.getElementById("nombre" + key.nom).value));
+                return _this.changeNumberProduit(key, Number.parseInt(document.getElementById("nombre" + key.nom).value));
             });
             document.getElementById("enlever" + key.nom).addEventListener("click", function (e) {
                 return _this.removeNumberProduit(key);
@@ -534,11 +679,16 @@ var PanierView = /** @class */function () {
         this.controller = controller;
         controller.setMain(main);
     };
+    PanierView.prototype.changeNumberProduit = function (produit, number) {
+        this.controller.changeNumberProduit(produit, number);
+        this.initPrix();
+    };
     PanierView.prototype.addNumberProduit = function (key) {
         var input = document.getElementById("nombre" + key.nom);
         if (Number.parseInt(input.value) < 999) {
             input.value = Number.parseInt(input.value) + 1 + "";
             this.panier.addProduit(key);
+            this.initPrix();
         } else {
             alert("Vous en avez peut être déja assez non ?");
         }
@@ -554,37 +704,61 @@ var PanierView = /** @class */function () {
                 this.init();
             } else {}
         }
+        this.initPrix();
+    };
+    PanierView.prototype.initPrix = function () {
+        console.log("g");
+        document.getElementById("prixTotalHT").textContent = this.panier.getPrixTotalHT() + '';
+        document.getElementById("ajoutTaxe").textContent = this.panier.getPrixTotalTTC() - this.panier.getPrixTotalHT() + '';
+        document.getElementById("prixTotalTTC").textContent = '' + (this.panier.getPrixTotalTTC() + index_1.Main.COUT_LIVRAISON);
     };
     return PanierView;
 }();
 exports.PanierView = PanierView;
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var PanierController = /** @class */function () {
-    function PanierController() {}
-    PanierController.prototype.setMain = function (main) {
-        this.main = main;
+var __extends = this && this.__extends || function () {
+    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+        d.__proto__ = b;
+    } || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+var index_1 = __webpack_require__(0);
+var Controller_1 = __webpack_require__(1);
+var PanierController = /** @class */function (_super) {
+    __extends(PanierController, _super);
+    function PanierController() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
     PanierController.prototype.changeNumberProduit = function (produit, number) {
-        this.main.panier.setNumberProduit(produit, number);
+        this.getMain().panier.setNumberProduit(produit, number);
     };
     PanierController.prototype.acheter = function () {
-        this.main.panier.clear();
-        this.main.showConfirmPage();
+        this.getMain().panier.clear();
+        document.getElementById(index_1.Main.ID_PANIER_NUMBER_DIV).innerText = this.getMain().panier.produitList.size + '';
+        this.getMain().showConfirmPage();
     };
     return PanierController;
-}();
+}(Controller_1.Controller);
 exports.PanierController = PanierController;
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -612,61 +786,95 @@ var ConnexionView = /** @class */function () {
 exports.ConnexionView = ConnexionView;
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var User_1 = __webpack_require__(1);
-var ConnexionController = /** @class */function () {
-    function ConnexionController() {}
-    ConnexionController.prototype.setMain = function (main) {
-        this.main = main;
+var __extends = this && this.__extends || function () {
+    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+        d.__proto__ = b;
+    } || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+var User_1 = __webpack_require__(2);
+var Controller_1 = __webpack_require__(1);
+var ConnexionController = /** @class */function (_super) {
+    __extends(ConnexionController, _super);
+    function ConnexionController() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
     ConnexionController.prototype.connexion = function (id, mdp) {
         var user = new User_1.User(id, mdp);
-        if (user.connexion(this.main.listUser)) {
-            this.main.user = user;
+        if (user.connexion(_super.prototype.getMain.call(this).listUser)) {
+            this.getMain().user = user;
             document.getElementById("connexion").innerHTML = id;
-            this.main.showAdminPage();
+            document.getElementById("panier").style.visibility = "hidden";
+            this.getMain().showAdminPage();
         } else {
             alert("pas bon");
         }
     };
     return ConnexionController;
-}();
+}(Controller_1.Controller);
 exports.ConnexionController = ConnexionController;
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var AdminPageController = /** @class */function () {
-    function AdminPageController() {}
-    AdminPageController.prototype.setMain = function (main) {
-        this.main = main;
+var __extends = this && this.__extends || function () {
+    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+        d.__proto__ = b;
+    } || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Controller_1 = __webpack_require__(1);
+var AdminPageController = /** @class */function (_super) {
+    __extends(AdminPageController, _super);
+    function AdminPageController() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
     AdminPageController.prototype.supprimerProduit = function (produit, page) {
         if (confirm("Etes vous sur de vouloir le supprimer")) {
-            this.main.catalogue.deleteProduit(produit);
-            this.main.showAdminPage(page);
+            this.getMain().catalogue.deleteProduit(produit);
+            this.getMain().showAdminPage(page);
         }
     };
     AdminPageController.prototype.modifierProduit = function (produit) {
-        this.main.showProduitUpdate(produit);
+        this.getMain().showProduitUpdate(produit);
+    };
+    AdminPageController.prototype.createProduit = function () {
+        this.getMain().showCreateProduit();
     };
     return AdminPageController;
-}();
+}(Controller_1.Controller);
 exports.AdminPageController = AdminPageController;
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -684,6 +892,7 @@ var AdminPageView = /** @class */function () {
         var sizeCatalogue = this.catalogue.produitList.length;
         var indiceDebutCatalogue = (page - 1) * 10;
         var indiceFinCatalogue = Math.min(sizeCatalogue, 10 * page);
+        affichageFinalCatalogue += '<button id="addProduit">Ajouter Produit</button>';
         for (var i = indiceDebutCatalogue; i < indiceFinCatalogue; i++) {
             affichageFinalCatalogue += '<div class="container">' + '<div class="row" style="background-color:lavender;">' + '<div class="col-xs-9" >' + '<img src="' + this.catalogue.getProduit(i).srcImage + '" class="img-responsive">' + '</div>' + '<div class="col">' + '<div class="well" class="float-right">' + '<h5>' + this.catalogue.getProduit(i).nom + '</h5>' + '<h6 class="descri arme">' + this.catalogue.getProduit(i).description.slice(0, this.catalogue.MAX_CHAR_DESCRIPTION) + '...</h6>' + '<h5>' + this.catalogue.getProduit(i).prix + ' $</h5> ' + '<button id="update' + this.catalogue.getProduit(i).nom + '">Modifier</button>' + '<button id="delete' + this.catalogue.getProduit(i).nom + '">Supprimer</button>' + '</div>' + '</div>' + '</div>' + '</div>';
         }
@@ -758,6 +967,9 @@ var AdminPageView = /** @class */function () {
             _loop_3(i);
         }
         document.getElementById("pageActuel").setAttribute("disabled", "true");
+        document.getElementById("addProduit").addEventListener("click", function (e) {
+            return _this.controller.createProduit();
+        });
     };
     AdminPageView.prototype.setController = function (controller, main) {
         this.controller = controller;
@@ -768,7 +980,7 @@ var AdminPageView = /** @class */function () {
 exports.AdminPageView = AdminPageView;
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -800,39 +1012,54 @@ var ProduitUpdtateView = /** @class */function () {
 exports.ProduitUpdtateView = ProduitUpdtateView;
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var ProduitUpdateController = /** @class */function () {
-    function ProduitUpdateController() {}
-    ProduitUpdateController.prototype.setMain = function (main) {
-        this.main = main;
+var __extends = this && this.__extends || function () {
+    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+        d.__proto__ = b;
+    } || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Controller_1 = __webpack_require__(1);
+var ProduitUpdateController = /** @class */function (_super) {
+    __extends(ProduitUpdateController, _super);
+    function ProduitUpdateController() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
     ProduitUpdateController.prototype.retourAccueil = function () {
-        this.main.showAdminPage();
+        this.getMain().showAdminPage();
     };
     ProduitUpdateController.prototype.updateProduit = function (titre, description, prix, produit) {
         var indice = 0;
-        for (indice; indice < this.main.catalogue.produitList.length; indice++) {
-            if (this.main.catalogue.getProduit(indice).nom == produit.nom) {
-                this.main.catalogue.getProduit(indice).nom = titre;
-                this.main.catalogue.getProduit(indice).description = description;
-                this.main.catalogue.getProduit(indice).prix = Number.parseInt(prix);
+        for (indice; indice < this.getMain().catalogue.produitList.length; indice++) {
+            if (this.getMain().catalogue.getProduit(indice).nom == produit.nom) {
+                this.getMain().catalogue.getProduit(indice).nom = titre;
+                this.getMain().catalogue.getProduit(indice).description = description;
+                this.getMain().catalogue.getProduit(indice).prix = Number.parseInt(prix);
                 break;
             }
         }
-        this.main.showAdminPage();
+        this.getMain().showAdminPage();
     };
     return ProduitUpdateController;
-}();
+}(Controller_1.Controller);
 exports.ProduitUpdateController = ProduitUpdateController;
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -858,10 +1085,10 @@ var ConfirmPageView = /** @class */function () {
     ConfirmPageView.prototype.getIdTransaction = function () {
         var res = "";
         for (var i = 0; i < 5; i++) {
-            res += String.fromCharCode(97 + 26) + "/";
+            res += String.fromCharCode(65 + this.getRandomNumber(26));
         }
         for (var i = 0; i < 10; i++) {
-            res += this.getRandomNumber(9) + "/";
+            res += this.getRandomNumber(9);
         }
         return res;
     };
@@ -873,138 +1100,271 @@ var ConfirmPageView = /** @class */function () {
 exports.ConfirmPageView = ConfirmPageView;
 
 /***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ConfirmPageController = /** @class */function () {
-    function ConfirmPageController() {}
-    ConfirmPageController.prototype.setMain = function (main) {
-        this.main = main;
-    };
-    return ConfirmPageController;
-}();
-exports.ConfirmPageController = ConfirmPageController;
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Catalogue_1 = __webpack_require__(2);
-var CatalogueView_1 = __webpack_require__(3);
-var Panier_1 = __webpack_require__(4);
-var CatalogueController_1 = __webpack_require__(5);
-var DescriptionProduitView_1 = __webpack_require__(6);
-var DescriptionProduitController_1 = __webpack_require__(7);
-var PanierView_1 = __webpack_require__(8);
-var PanierController_1 = __webpack_require__(9);
-var ConnexionView_1 = __webpack_require__(10);
-var ConnexionController_1 = __webpack_require__(11);
-var User_1 = __webpack_require__(1);
-var AdminPageController_1 = __webpack_require__(12);
-var AdminPageView_1 = __webpack_require__(13);
-var ProduitUpdateView_1 = __webpack_require__(14);
-var ProduitUpdateController_1 = __webpack_require__(15);
-var ConfirmPageView_1 = __webpack_require__(16);
-var ConfirmPageController_1 = __webpack_require__(17);
-window.onload = function () {
-    console.log("ONLOAD");
-    var main = new Main();
-    main.init();
-};
-var Main = /** @class */function () {
-    function Main() {}
-    Main.prototype.init = function () {
-        var _this = this;
-        this.catalogue = Catalogue_1.Catalogue.init();
-        this.panier = new Panier_1.Panier();
-        this.listUser = new Array();
-        this.listUser.push(new User_1.User("admin", "admin"));
-        document.getElementById("panier").addEventListener("click", function (e) {
-            return _this.showPanier();
-        });
-        document.getElementById("connexion").addEventListener("click", function (e) {
-            return _this.showConnexion();
-        });
-        document.getElementById("accueil").addEventListener("click", function (e) {
-            return _this.showCatalogue();
-        });
-        this.showCatalogue();
-    };
-    Main.prototype.showCatalogue = function () {
-        var catalogueView = new CatalogueView_1.CatalogueView(this.catalogue);
-        catalogueView.setController(new CatalogueController_1.CatalogueController(), this);
-        catalogueView.init(1);
-    };
-    Main.prototype.showDescription = function (produit) {
-        var descriptionView = new DescriptionProduitView_1.DescriptionProduitView(produit);
-        descriptionView.setController(new DescriptionProduitController_1.DescriptionProduitController(), this);
-        descriptionView.init();
-    };
-    Main.prototype.showPanier = function () {
-        if (this.panier.produitList.size == 0) {
-            alert("Panier Vide");
-        } else {
-            var panierView = new PanierView_1.PanierView(this.panier);
-            panierView.setController(new PanierController_1.PanierController(), this);
-            panierView.init();
-        }
-    };
-    Main.prototype.showConnexion = function () {
-        var connexionView = new ConnexionView_1.ConnexionView();
-        connexionView.setController(new ConnexionController_1.ConnexionController(), this);
-        connexionView.init();
-    };
-    Main.prototype.showAdminPage = function (page) {
-        var adminPageView = new AdminPageView_1.AdminPageView(this.catalogue);
-        adminPageView.setController(new AdminPageController_1.AdminPageController(), this);
-        adminPageView.init(page || 1);
-    };
-    Main.prototype.showProduitUpdate = function (produit) {
-        var produitUpdtateView = new ProduitUpdateView_1.ProduitUpdtateView(produit);
-        produitUpdtateView.setController(new ProduitUpdateController_1.ProduitUpdateController(), this);
-        produitUpdtateView.init();
-    };
-    Main.prototype.showConfirmPage = function () {
-        var confirmPageView = new ConfirmPageView_1.ConfirmPageView(this.getRandomBoolean());
-        confirmPageView.setController(new ConfirmPageController_1.ConfirmPageController(), this);
-        confirmPageView.init();
-    };
-    Main.prototype.getRandomBoolean = function () {
-        return Math.random() * 2 > 1;
-    };
-    Main.SRC_FICHIER = "../res/imageProduit/";
-    Main.ID_MAIN_DIV = "main";
-    return Main;
-}();
-exports.Main = Main;
-
-/***/ }),
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var Produit = /** @class */function () {
-    function Produit(nom, description, prix, srcImage, taxe) {
-        this.nom = nom;
-        this.description = description;
-        this.prix = prix;
-        this.srcImage = srcImage;
-        this.taxe = taxe;
-    }
-    return Produit;
+var __extends = this && this.__extends || function () {
+    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+        d.__proto__ = b;
+    } || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
 }();
-exports.Produit = Produit;
+Object.defineProperty(exports, "__esModule", { value: true });
+var Controller_1 = __webpack_require__(1);
+var ConfirmPageController = /** @class */function (_super) {
+    __extends(ConfirmPageController, _super);
+    function ConfirmPageController() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return ConfirmPageController;
+}(Controller_1.Controller);
+exports.ConfirmPageController = ConfirmPageController;
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var index_1 = __webpack_require__(0);
+var CreateProduitView = /** @class */function () {
+    function CreateProduitView() {
+        var _this = this;
+        var affichageProduitsFinal = '<div class="container">' + '<div class="row"  style="background-color:lavender;">' + '<div class="col-xs-9" >' + '<p id="imageSRC"></p>' + '</div>' + '<div class="col">' + '<div class="well" class="float-right">' + '<div class="text">' + '<input id="titre" ><br>' + '<textarea id="description" rows="4" cols="50"></textarea><br>' + '<input id="prix"><br>' + '<input id="taxe" value="30"><br>' + '<button id="createProduit">Créer le produit</button>' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>';
+        document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = affichageProduitsFinal;
+        document.getElementById("createProduit").addEventListener("click", function (e) {
+            return _this.controller.createProduit(document.getElementById("titre").value, document.getElementById("description").value, document.getElementById("prix").value, document.getElementById("taxe").value);
+        });
+    }
+    CreateProduitView.prototype.init = function () {};
+    CreateProduitView.prototype.setController = function (controller, main) {
+        this.controller = controller;
+        this.controller.setMain(main);
+    };
+    return CreateProduitView;
+}();
+exports.CreateProduitView = CreateProduitView;
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __extends = this && this.__extends || function () {
+    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+        d.__proto__ = b;
+    } || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Controller_1 = __webpack_require__(1);
+var Produit_1 = __webpack_require__(4);
+var index_1 = __webpack_require__(0);
+var CreateProduitController = /** @class */function (_super) {
+    __extends(CreateProduitController, _super);
+    function CreateProduitController() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    CreateProduitController.prototype.createProduit = function (titre, description, prix, taxe) {
+        console.log(description);
+        var produit = new Produit_1.Produit(titre, description, Number.parseInt(prix), index_1.Main.SRC_FICHIER + "placeholder.jpg", Number.parseInt(taxe));
+        this.getMain().catalogue.addProduit(produit);
+        this.getMain().showAdminPage();
+    };
+    return CreateProduitController;
+}(Controller_1.Controller);
+exports.CreateProduitController = CreateProduitController;
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Catalogue_1 = __webpack_require__(3);
+var CatalogueView_1 = __webpack_require__(5);
+var Panier_1 = __webpack_require__(6);
+var CatalogueController_1 = __webpack_require__(7);
+var DescriptionProduitView_1 = __webpack_require__(8);
+var DescriptionProduitController_1 = __webpack_require__(9);
+var PanierView_1 = __webpack_require__(10);
+var PanierController_1 = __webpack_require__(11);
+var ConnexionView_1 = __webpack_require__(12);
+var ConnexionController_1 = __webpack_require__(13);
+var User_1 = __webpack_require__(2);
+var AdminPageController_1 = __webpack_require__(14);
+var AdminPageView_1 = __webpack_require__(15);
+var ProduitUpdateView_1 = __webpack_require__(16);
+var ProduitUpdateController_1 = __webpack_require__(17);
+var ConfirmPageView_1 = __webpack_require__(18);
+var ConfirmPageController_1 = __webpack_require__(19);
+var CreateProduitView_1 = __webpack_require__(20);
+var CreateProduitController_1 = __webpack_require__(21);
+/**
+ * Appeler au lancement permet d'instancier la fonction main
+ */
+window.onload = function () {
+    console.log("ONLOAD");
+    var main = new Main();
+    main.init();
+};
+/**
+ * Cette classe est la classe principal du programme c'est celle qui contient les données importance au site et les fonctions pour afficher le contenu
+ */
+var Main = /** @class */function () {
+    function Main() {}
+    /**
+     * Méthode qui permet d'initialiser les variable de la class ainsi que les événements de la barre de navigation
+     */
+    Main.prototype.init = function () {
+        var _this = this;
+        this.catalogue = Catalogue_1.Catalogue.init(); //on init le catalogue avec des produits pré-créer
+        this.panier = new Panier_1.Panier(); // on initialise le catalogue
+        this.listUser = new Array(); //on initialise la liste d'utilisateur
+        this.listUser.push(new User_1.User("admin", "admin")); //on créer l'utilisateur qui peut se connecter (Dans ce cas il n'y en as qu'un, mais au moins la liste est prête si besoin de modification pour prochaine TP
+        document.getElementById("panier").addEventListener("click", function (e) {
+            return _this.showPanier();
+        }); //on créer l'événement du bouton panier
+        document.getElementById("connexion").addEventListener("click", function (e) {
+            return _this.buttonConnexion();
+        }); //on créer l'évenement du bouton connexion
+        document.getElementById("accueil").addEventListener("click", function (e) {
+            return _this.showAccueil();
+        }); //on créer l'évenement du bouton accueil
+        this.showCatalogue(); //on affiche le catalogue qui sert de page d'accueil du site
+    };
+    /**
+     * Méthode qui permet d'afficher le catalogue
+     */
+    Main.prototype.showCatalogue = function () {
+        var catalogueView = new CatalogueView_1.CatalogueView(this.catalogue); //on initialise la vue du catalogue
+        catalogueView.setController(new CatalogueController_1.CatalogueController(), this); //on set le controller de la vue
+        catalogueView.init(1); //on affiche le contenu de la page
+    };
+    /**
+     * Méthode qui permet d'afficher la description détaillé du produit
+     * @param {Produit} produit
+     *  produit que l'on veut voir sa description détaillé
+     */
+    Main.prototype.showDescription = function (produit) {
+        var descriptionView = new DescriptionProduitView_1.DescriptionProduitView(produit); //on initialise la vue de la description de produit
+        descriptionView.setController(new DescriptionProduitController_1.DescriptionProduitController(), this); //on set le controller de la vue
+        descriptionView.init(); //on affiche le contenu de la page
+    };
+    /**
+     * Méthode qui permet d'afficher le panier si il n'est pas vide
+     */
+    Main.prototype.showPanier = function () {
+        if (this.panier.produitList.size == 0) {
+            alert("Panier Vide"); //si vide on prévient l'utilisateur
+        } else {
+            var panierView = new PanierView_1.PanierView(this.panier); //on initialise la vue du panier
+            panierView.setController(new PanierController_1.PanierController(), this); //on set le controller de la vue
+            panierView.init(); //on affiche le contenu de la page
+        }
+    };
+    /**
+     * Méthode qui permet d'afficher la page pour pouvoir se connecter
+     */
+    Main.prototype.showConnexion = function () {
+        var connexionView = new ConnexionView_1.ConnexionView(); //on initialise la vue pour se connecter
+        connexionView.setController(new ConnexionController_1.ConnexionController(), this); //on set le controller de la vue
+        connexionView.init(); //on affiche le contenu de la page
+    };
+    /**
+     * Méthode qui permet d'afficher la page de gestion du catalogue d'un admin
+     * @param {number} page
+     */
+    Main.prototype.showAdminPage = function (page) {
+        var adminPageView = new AdminPageView_1.AdminPageView(this.catalogue);
+        adminPageView.setController(new AdminPageController_1.AdminPageController(), this);
+        adminPageView.init(page || 1); //on affiche le contenu de la page
+    };
+    Main.prototype.showProduitUpdate = function (produit) {
+        var produitUpdtateView = new ProduitUpdateView_1.ProduitUpdtateView(produit);
+        produitUpdtateView.setController(new ProduitUpdateController_1.ProduitUpdateController(), this);
+        produitUpdtateView.init(); //on affiche le contenu de la page
+    };
+    Main.prototype.showConfirmPage = function () {
+        var confirmPageView = new ConfirmPageView_1.ConfirmPageView(this.getRandomBoolean());
+        confirmPageView.setController(new ConfirmPageController_1.ConfirmPageController(), this);
+        confirmPageView.init(); //on affiche le contenu de la page
+    };
+    Main.prototype.showCreateProduit = function () {
+        var createProduitView = new CreateProduitView_1.CreateProduitView();
+        createProduitView.setController(new CreateProduitController_1.CreateProduitController(), this);
+        createProduitView.init(); //on affiche le contenu de la page
+    };
+    Main.prototype.getRandomBoolean = function () {
+        return Math.random() * 2 > 1;
+    };
+    Main.prototype.buttonConnexion = function () {
+        if (this.user == null) {
+            this.showConnexion();
+        } else {
+            if (confirm("Etes vous sur de vouloir vous déconnecter ?")) {
+                this.user = null;
+                document.getElementById("connexion").innerHTML = "Connexion";
+                document.getElementById("panier").style.visibility = "visible";
+                this.showCatalogue();
+            }
+        }
+    };
+    Main.prototype.showAccueil = function () {
+        if (this.user == null) {
+            this.showCatalogue();
+        } else {
+            this.showAdminPage(1);
+        }
+    };
+    /**
+     * constante qui permet de récupérer l'emplacement des images de produit du site
+     * @type {string}
+     */
+    Main.SRC_FICHIER = "../res/imageProduit/";
+    /**
+     * constante qui permet de récupérer le nom de la div principal pour placer le contenu du site
+     * @type {string}
+     */
+    Main.ID_MAIN_DIV = "main";
+    /**
+     * constante qui permet de récupérer le nom de la div qui contient le nombre d'élement au panier
+     * @type {string}
+     */
+    Main.ID_PANIER_NUMBER_DIV = "numberProduitPanier";
+    /**
+     * constante qui permet de récupérer le prix de livraison du site
+     * @type {number}
+     */
+    Main.COUT_LIVRAISON = 5;
+    return Main;
+}();
+exports.Main = Main;
 
 /***/ })
 /******/ ]);

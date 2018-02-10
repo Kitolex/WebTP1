@@ -1,17 +1,37 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("../index");
+/**
+ * Class qui permet de gérer la vue d'une modification de produit par un admin
+ */
 var ProduitUpdtateView = /** @class */ (function () {
+    /**
+     * Constructeur de la classe ProduitUpdtateView
+     * @param {Produit} produit
+     *  le produit à modifier
+     */
     function ProduitUpdtateView(produit) {
         this.produit = produit;
     }
+    /**
+     * Méthode qui permet de set up le controller pour la vue
+     * @param {ProduitUpdateController} controller
+     *  controller pour la vue
+     * @param {Main} main
+     *  la classe main est à rajouter dans la classe main afin de permettre au controller de modifier les infos principaux
+     */
     ProduitUpdtateView.prototype.setController = function (controller, main) {
         this.controller = controller;
         this.controller.setMain(main);
     };
+    /**
+     * Fonction appellé par main qui permet d'afficher le produit à modifier et les différents éléments
+     */
     ProduitUpdtateView.prototype.init = function () {
+        //-----------------Génération HTML---------------
         var _this = this;
-        var affichageProduitsFinal = '<div class="container">' +
+        //affichage du produit à modifier
+        var affichageProduitUpdateFinal = '<div class="container">' +
             '<div class="row"  style="background-color:lavender;">' +
             '<div class="col-xs-9" >' +
             '<img src="' + this.produit.srcImage + '" class="img-responsive">' +
@@ -33,8 +53,14 @@ var ProduitUpdtateView = /** @class */ (function () {
             '<button id="retourCatalogue" type="button" class="btn btn-dark">Retour au catalogue</button>' +
             '<div>' +
             '</div>';
-        document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = affichageProduitsFinal;
-        document.getElementById("modifier").addEventListener("click", function (e) { return _this.controller.updateProduit(document.getElementById("titre").value, document.getElementById("description").value, document.getElementById("prix").value, _this.produit); });
+        document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = affichageProduitUpdateFinal; //applique html à la main div
+        //-------------événement--------//
+        //évenement pour le boutton "modifier" qui appelle la fonction du controller qui modifie le produit
+        document.getElementById("modifier").addEventListener("click", function (e) { return _this.controller.updateProduit(document.getElementById("titre").value //titre du produit
+        , document.getElementById("description").value //description du produit
+        , document.getElementById("prix").value, //prix du produit
+        _this.produit); });
+        //évenement pour le bouton "Retour au catalogue" qui appelle la fonction du controller qui renvoie à la page d'accueil
         document.getElementById("retourCatalogue").addEventListener("click", function (e) { return _this.controller.retourAccueil(); });
     };
     return ProduitUpdtateView;

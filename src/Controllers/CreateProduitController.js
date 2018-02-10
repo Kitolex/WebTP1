@@ -11,11 +11,19 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Controller_1 = require("./Controller");
-var ConfirmPageController = /** @class */ (function (_super) {
-    __extends(ConfirmPageController, _super);
-    function ConfirmPageController() {
+var Produit_1 = require("../Models/Produit");
+var index_1 = require("../index");
+var CreateProduitController = /** @class */ (function (_super) {
+    __extends(CreateProduitController, _super);
+    function CreateProduitController() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    return ConfirmPageController;
+    CreateProduitController.prototype.createProduit = function (titre, description, prix, taxe) {
+        console.log(description);
+        var produit = new Produit_1.Produit(titre, description, Number.parseInt(prix), index_1.Main.SRC_FICHIER + "placeholder.jpg", Number.parseInt(taxe));
+        this.getMain().catalogue.addProduit(produit);
+        this.getMain().showAdminPage();
+    };
+    return CreateProduitController;
 }(Controller_1.Controller));
-exports.ConfirmPageController = ConfirmPageController;
+exports.CreateProduitController = CreateProduitController;

@@ -1,18 +1,30 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("../index");
+/**
+ * Class qui permet de gérer la vue de l'affichage de la gestion du catalogue par l'admin
+ */
 var AdminPageView = /** @class */ (function () {
+    /**
+     * Constructeur de la classe
+     * @param {Catalogue} catalogue
+     */
     function AdminPageView(catalogue) {
         this.catalogue = catalogue;
     }
+    /**
+     * Fonction appellé par main qui permet d'afficher la gestion du catalogue
+     * @param {number} page
+     */
     AdminPageView.prototype.init = function (page) {
         var _this = this;
-        var affichageFinalCatalogue = "";
+        var affichageAdminPageFinal = "";
         var sizeCatalogue = this.catalogue.produitList.length;
         var indiceDebutCatalogue = (page - 1) * 10;
         var indiceFinCatalogue = Math.min(sizeCatalogue, 10 * page);
+        affichageAdminPageFinal += '<button id="addProduit">Ajouter Produit</button>';
         for (var i = indiceDebutCatalogue; i < indiceFinCatalogue; i++) {
-            affichageFinalCatalogue +=
+            affichageAdminPageFinal +=
                 '<div class="container">' +
                     '<div class="row" style="background-color:lavender;">' +
                     '<div class="col-xs-9" >' +
@@ -30,25 +42,25 @@ var AdminPageView = /** @class */ (function () {
                     '</div>' +
                     '</div>';
         }
-        affichageFinalCatalogue += '<div class="text-center">' +
+        affichageAdminPageFinal += '<div class="text-center">' +
             '<div class="btn-group">' +
             '<button type="button" class="btn btn-dark" id="DebutButton"><<</button>' +
             '<button type="button" class="btn btn-dark" id="PrecedentButton"><</button>';
         for (var i = 2; i > 0; i--) {
             if (page > i) {
-                affichageFinalCatalogue += '<button type="button" class="btn btn-dark" id="-' + i + 'Page">' + (page - i) + '</button>';
+                affichageAdminPageFinal += '<button type="button" class="btn btn-dark" id="-' + i + 'Page">' + (page - i) + '</button>';
             }
         }
-        affichageFinalCatalogue += '<button type="button" class="btn btn-dark" id="pageActuel">' + page + '</button>';
+        affichageAdminPageFinal += '<button type="button" class="btn btn-dark" id="pageActuel">' + page + '</button>';
         for (var i = 1; i < 3; i++) {
             if (sizeCatalogue > page * 10 + (10 * (i - 1))) {
-                affichageFinalCatalogue += '<button type="button" class="btn btn-dark" id="+' + i + 'Page">' + (page + i) + '</button>';
+                affichageAdminPageFinal += '<button type="button" class="btn btn-dark" id="+' + i + 'Page">' + (page + i) + '</button>';
             }
         }
-        affichageFinalCatalogue += '<button type="button" class="btn btn-dark" id="SuivantButton">></button>';
-        affichageFinalCatalogue += '<button type="button" class="btn btn-dark" id="FinButton">>></button>';
-        affichageFinalCatalogue += '</div></div>';
-        document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = affichageFinalCatalogue;
+        affichageAdminPageFinal += '<button type="button" class="btn btn-dark" id="SuivantButton">></button>';
+        affichageAdminPageFinal += '<button type="button" class="btn btn-dark" id="FinButton">>></button>';
+        affichageAdminPageFinal += '</div></div>';
+        document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = affichageAdminPageFinal;
         var _loop_1 = function (i) {
             document.getElementById("update" + this_1.catalogue.getProduit(i).nom).addEventListener("click", function (e) { return _this.controller.modifierProduit(_this.catalogue.getProduit(i)); });
             document.getElementById("delete" + this_1.catalogue.getProduit(i).nom).addEventListener("click", function (e) { return _this.controller.supprimerProduit(_this.catalogue.getProduit(i), page); });
@@ -90,6 +102,7 @@ var AdminPageView = /** @class */ (function () {
             _loop_3(i);
         }
         document.getElementById("pageActuel").setAttribute("disabled", "true");
+        document.getElementById("addProduit").addEventListener("click", function (e) { return _this.controller.createProduit(); });
     };
     AdminPageView.prototype.setController = function (controller, main) {
         this.controller = controller;

@@ -1,10 +1,6 @@
-import {Main} from "../index";
 
-export class ConfirmPageController{
-    private main: Main;
+import {Controller} from "./Controller";
 
+export class ConfirmPageController extends Controller{
 
-    public setMain(main :Main){
-        this.main=main;
-    }
 }

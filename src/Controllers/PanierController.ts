@@ -1,22 +1,17 @@
 import {Main} from "../index";
 import {Produit} from "../Models/Produit";
+import {Controller} from "./Controller";
 
-export class PanierController{
+export class PanierController extends Controller{
 
-    private main : Main;
-
-
-
-    public setMain(main :Main){
-        this.main=main;
-    }
 
     public changeNumberProduit(produit: Produit, number: number) {
-        this.main.panier.setNumberProduit(produit,number);
+        this.getMain().panier.setNumberProduit(produit,number);
     }
 
     public acheter() {
-        this.main.panier.clear();
-        this.main.showConfirmPage();
+        this.getMain().panier.clear();
+        document.getElementById(Main.ID_PANIER_NUMBER_DIV).innerText=this.getMain().panier.produitList.size+'';
+        this.getMain().showConfirmPage();
     }
 }

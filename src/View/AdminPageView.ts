@@ -3,26 +3,43 @@ import {Main} from "../index";
 import {ConnexionController} from "../Controllers/ConnexionController";
 import {Catalogue} from "../Models/Catalogue";
 
+/**
+ * Class qui permet de gérer la vue de l'affichage de la gestion du catalogue par l'admin
+ */
 export class AdminPageView{
 
+    /**
+     * Controlleur de la vue
+     */
     private controller : AdminPageController;
+    /**
+     * Catalogue à afficher
+     */
     private catalogue : Catalogue;
 
-
+    /**
+     * Constructeur de la classe
+     * @param {Catalogue} catalogue
+     */
     constructor(catalogue: Catalogue) {
         this.catalogue = catalogue;
     }
 
+    /**
+     * Fonction appellé par main qui permet d'afficher la gestion du catalogue
+     * @param {number} page
+     */
     public init(page :number){
-        let affichageFinalCatalogue :string ="";
+        let affichageAdminPageFinal :string ="";
 
         let sizeCatalogue = this.catalogue.produitList.length;
         let indiceDebutCatalogue =(page-1)*10;
         let indiceFinCatalogue =Math.min(sizeCatalogue,10*page);
 
+        affichageAdminPageFinal += '<button id="addProduit">Ajouter Produit</button>';
 
         for(let i :number =indiceDebutCatalogue ;i<indiceFinCatalogue;i++){
-            affichageFinalCatalogue +=
+            affichageAdminPageFinal +=
                 '<div class="container">'+
                 '<div class="row" style="background-color:lavender;">'+
                 '<div class="col-xs-9" >'+
@@ -43,30 +60,30 @@ export class AdminPageView{
         }
 
 
-        affichageFinalCatalogue += '<div class="text-center">'+
+        affichageAdminPageFinal += '<div class="text-center">'+
             '<div class="btn-group">'+
             '<button type="button" class="btn btn-dark" id="DebutButton"><<</button>'+
             '<button type="button" class="btn btn-dark" id="PrecedentButton"><</button>';
 
         for(let i :number =2 ;i>0;i--){
             if(page>i){
-                affichageFinalCatalogue += '<button type="button" class="btn btn-dark" id="-'+i+'Page">'+(page - i)+'</button>';
+                affichageAdminPageFinal += '<button type="button" class="btn btn-dark" id="-'+i+'Page">'+(page - i)+'</button>';
             }
         }
-        affichageFinalCatalogue += '<button type="button" class="btn btn-dark" id="pageActuel">'+page+'</button>';
+        affichageAdminPageFinal += '<button type="button" class="btn btn-dark" id="pageActuel">'+page+'</button>';
         for(let i :number =1 ;i<3;i++){
             if(sizeCatalogue>page*10+(10*(i-1))){
-                affichageFinalCatalogue += '<button type="button" class="btn btn-dark" id="+'+i+'Page">'+(page + i)+'</button>';
+                affichageAdminPageFinal += '<button type="button" class="btn btn-dark" id="+'+i+'Page">'+(page + i)+'</button>';
             }
         }
-        affichageFinalCatalogue += '<button type="button" class="btn btn-dark" id="SuivantButton">></button>';
-        affichageFinalCatalogue += '<button type="button" class="btn btn-dark" id="FinButton">>></button>';
+        affichageAdminPageFinal += '<button type="button" class="btn btn-dark" id="SuivantButton">></button>';
+        affichageAdminPageFinal += '<button type="button" class="btn btn-dark" id="FinButton">>></button>';
 
-        affichageFinalCatalogue += '</div></div>';
+        affichageAdminPageFinal += '</div></div>';
 
 
 
-        document.getElementById(Main.ID_MAIN_DIV).innerHTML = affichageFinalCatalogue;
+        document.getElementById(Main.ID_MAIN_DIV).innerHTML = affichageAdminPageFinal;
 
         for(let i :number =indiceDebutCatalogue ;i<indiceFinCatalogue;i++){
             document.getElementById("update"+this.catalogue.getProduit(i).nom).addEventListener("click", (e:Event) =>this.controller.modifierProduit(this.catalogue.getProduit(i)));
@@ -103,6 +120,8 @@ export class AdminPageView{
         }
 
         document.getElementById("pageActuel").setAttribute("disabled","true");
+
+        document.getElementById("addProduit").addEventListener("click",(e:Event)=> this.controller.createProduit());
     }
 
 

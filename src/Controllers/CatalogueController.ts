@@ -1,20 +1,19 @@
 import {Produit} from "../Models/Produit";
 import {Main} from "../index";
+import {Controller} from "./Controller";
 
-export class CatalogueController{
+export class CatalogueController extends Controller{
 
-    private main : Main;
+
 
     public buttonAddPanier(produit : Produit){
-        this.main.panier.addProduit(produit);
+        this.getMain().panier.addProduit(produit);
+        document.getElementById(Main.ID_PANIER_NUMBER_DIV).innerText=this.getMain().panier.produitList.size+'';
     }
 
     public buttonDescriptionDetaille(produit : Produit){
-        this.main.showDescription(produit);
+        this.getMain().showDescription(produit);
     }
 
-    public setMain(main :Main){
-        this.main=main;
-    }
 
 }

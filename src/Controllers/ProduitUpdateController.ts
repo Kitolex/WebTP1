@@ -1,27 +1,24 @@
 import {Main} from "../index";
 import {Produit} from "../Models/Produit";
+import {Controller} from "./Controller";
 
-export class ProduitUpdateController{
-    private main: Main;
+export class ProduitUpdateController extends Controller{
 
-    setMain(main: Main) {
-        this.main= main;
-    }
 
     retourAccueil() {
-        this.main.showAdminPage();
+        this.getMain().showAdminPage();
     }
 
     updateProduit(titre: string, description: string, prix: string,produit : Produit) {
         let indice : number=0;
-        for(indice;indice<this.main.catalogue.produitList.length;indice++){
-            if(this.main.catalogue.getProduit(indice).nom==produit.nom){
-                this.main.catalogue.getProduit(indice).nom=titre;
-                this.main.catalogue.getProduit(indice).description=description;
-                this.main.catalogue.getProduit(indice).prix=Number.parseInt(prix);
+        for(indice;indice<this.getMain().catalogue.produitList.length;indice++){
+            if(this.getMain().catalogue.getProduit(indice).nom==produit.nom){
+                this.getMain().catalogue.getProduit(indice).nom=titre;
+                this.getMain().catalogue.getProduit(indice).description=description;
+                this.getMain().catalogue.getProduit(indice).prix=Number.parseInt(prix);
                 break;
             }
         }
-        this.main.showAdminPage();
+        this.getMain().showAdminPage();
     }
 }
