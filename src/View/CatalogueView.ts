@@ -2,6 +2,7 @@ import {Catalogue} from "../Models/Catalogue";
 import {CatalogueController} from "../Controllers/CatalogueController";
 import {Main} from "../index";
 import {User} from "../Models/User";
+import {Produit} from "../Models/Produit";
 
 /**
  * Class qui permet de gérer la vue de l'affichage du catalogue et coût
@@ -57,8 +58,15 @@ export class CatalogueView{
                                 '<h5>'+this.catalogue.getProduit(i).nom+'</h5>'+
                                 '<h6 class="descri arme">'+this.catalogue.getProduit(i).description.slice(0,this.catalogue.MAX_CHAR_DESCRIPTION)+'...</h6>'+
                                 '<button id ="description'+this.catalogue.getProduit(i).nom+'" type="button" class="btn btn-link"> En savoir plus</button>'+
-                                '<h5>'+this.catalogue.getProduit(i).prix+' $</h5> ' +
-                                '<button id="panier'+this.catalogue.getProduit(i).nom+'" type="button" class="btn btn-primary btn-sm">Ajouter au Panier</button>'+
+                                '<h5>'+this.catalogue.getProduit(i).prix+' $</h5> ' ;
+                                if(this.controller.existProduitPanier(this.catalogue.getProduit(i))){
+                                    affichageCatalogueFinal+= this.controller.setNbPanier(this.catalogue.getProduit(i));
+
+                                }else{
+                                    affichageCatalogueFinal+='<button id="panier'+this.catalogue.getProduit(i).nom+'" type="button" class="btn btn-primary btn-sm">Ajouter au Panier</button>';
+                                }
+
+            affichageCatalogueFinal += '<h5 id="panierNombre'+this.catalogue.getProduit(i).nom+'"></h5> ' +
                             '</div>'+
                         '</div>'+
                     '</div>'+
@@ -96,7 +104,7 @@ export class CatalogueView{
         //boutton pour aller sur la dernière page
         affichageCatalogueFinal += '<button type="button" class="btn btn-dark" id="FinButton">>></button>';
 
-        affichageCatalogueFinal += '</div></div>';//fermet les div des bouttons
+        affichageCatalogueFinal += '</div></div>';//fermer les div des bouttons
 
 
 
@@ -104,9 +112,11 @@ export class CatalogueView{
 
         //pour chaque porduit on met un evenement pour l'ajouter au panier et voir la description
         for(let i :number =indiceDebutCatalogue ;i<indiceFinCatalogue;i++){
-            document.getElementById("panier"+this.catalogue.getProduit(i).nom).addEventListener("click", (e:Event) =>this.controller.buttonAddPanier(this.catalogue.getProduit(i)));
+            document.getElementById("panier"+this.catalogue.getProduit(i).nom).addEventListener("click", (e:Event) => this.controller.buttonAddPanier(this.catalogue.getProduit(i), (<HTMLParagraphElement>document.getElementById("panier" + this.catalogue.getProduit(i).nom))));
             document.getElementById("description"+this.catalogue.getProduit(i).nom).addEventListener("click", (e:Event) =>this.controller.buttonDescriptionDetaille(this.catalogue.getProduit(i)));
+            document.getElementById("panierNombre"+this.catalogue.getProduit(i).nom).setAttribute("visible","false");// on désactive le boutton de la page actuel
         }
+
 
         //si page 1 on disable le bouton du début et précédent
         if(page==1){
@@ -141,6 +151,7 @@ export class CatalogueView{
         }
 
         document.getElementById("pageActuel").setAttribute("disabled","true");// on désactive le boutton de la page actuel
+
     }
 
 
@@ -148,4 +159,5 @@ export class CatalogueView{
         this.controller=controller;
         controller.setMain(main);
     }
+
 }

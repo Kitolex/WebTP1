@@ -10,8 +10,9 @@ var ConfirmPageView = /** @class */ (function () {
      * @param {boolean} reussite
      *  booléan pour savoir si la transaction est réussite ou non
      */
-    function ConfirmPageView(reussite) {
+    function ConfirmPageView(reussite, panier) {
         this.reussite = reussite;
+        this.panier = panier;
     }
     /**
      * Fonction appellé par main qui permet d'afficher la confirmation d'achat
@@ -21,11 +22,66 @@ var ConfirmPageView = /** @class */ (function () {
         // variable pour afficher  la confirmation d'achat
         var affichageConfirmationFinal = "";
         if (this.reussite) {
-            document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = '<p>reussite ' + this.getIdTransaction() + '</p>';
+            affichageConfirmationFinal +=
+                '<div class="container">' +
+                    '<div class="row"  style="background-color:lavender;">' +
+                    '<div class="well" class="float-left">' +
+                    '<div class="col-xs-2">' +
+                    '<h6 class="Transaction"> ID Transaction : <br> <span id="ID-Trans">' + this.getIdTransaction() + '</span></h6>' +
+                    '<p class="Date1"> Date et heure de la transaction : <br> <span id="ID-Trans">' + this.getDate() + '</span></p>' +
+                    '</div>' +
+                    '<table class="tabl-centre">' +
+                    '<tr>' +
+                    '<th>Nom produit</th>' +
+                    '<th>Nombre</th>' +
+                    '<th>Prix total du produit</th>' +
+                    '</tr>';
+            this.panier.produitList.forEach(function (value, key, map) {
+                affichageConfirmationFinal +=
+                    '<tr>' +
+                        '<td>' + key.nom + '</td>' +
+                        '<td>' + value + '</td>' +
+                        '<td>' + (key.prix * value) + '</td>' +
+                        '</tr>';
+            });
+            affichageConfirmationFinal +=
+                '<table class="taxe-panier-petit tabl-centre">' +
+                    '<tr>' +
+                    '<th class="th-taxe">Hors taxe</th>' +
+                    '<td class="td-taxe-vide">:</td>' +
+                    '<td class="td-taxe" id="prixTotalHT">' + this.panier.getPrixTotalHT() + '</td>' + //affichage du prix Hors Taxe
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="th-taxe">Taxe</th>' +
+                    '<td class="td-taxe-vide">:</td>' +
+                    '<td class="td-taxe" id="ajoutTaxe">' + (this.panier.getPrixTotalTTC() - this.panier.getPrixTotalHT()) + '</td>' + //affichage des Taxes
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="th-taxe">Livraison</th>' +
+                    '<td class="td-taxe-vide">:</td>' +
+                    '<td class="td-taxe" id="livraison">' + index_1.Main.COUT_LIVRAISON + '</td>' + //affichage du cout de livraison
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="th-taxe">Prix final</th>' +
+                    '<td class="td-taxe-vide">:</td>' +
+                    '<td class="td-taxe" id="prixTotalTTC">' + (this.panier.getPrixTotalTTC() + index_1.Main.COUT_LIVRAISON) + '</td>' + //affichage du côut total
+                    '</tr>' +
+                    '</table>';
         }
         else {
-            document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = '<p>pas réussite</p>';
+            affichageConfirmationFinal =
+                '<div class="container">' +
+                    '<div class="row"  style="background-color:lavender;">' +
+                    '<div class="well" class="float-left">' +
+                    '<div class="col-xs-2">' +
+                    '<p> Le payement a été refusé pour cause de <span class="raison-pas-payement">pane technique suite au renfersement de café de la part du stagiaire</span></p>' +
+                    '<p>Vous pouvez retourner à la poutique</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
         }
+        document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = affichageConfirmationFinal;
     };
     ConfirmPageView.prototype.setController = function (controller, main) {
         this.controller = controller;
@@ -54,6 +110,10 @@ var ConfirmPageView = /** @class */ (function () {
      */
     ConfirmPageView.prototype.getRandomNumber = function (max) {
         return Math.floor(Math.random() * max);
+    };
+    ConfirmPageView.prototype.getDate = function () {
+        var date = new Date();
+        return date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear() + "  " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     };
     return ConfirmPageView;
 }());

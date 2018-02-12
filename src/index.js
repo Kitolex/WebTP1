@@ -110,7 +110,7 @@ var Main = /** @class */ (function () {
      * Méthode qui permet d'avoir la confirmation si l'achat à réussi ou non
      */
     Main.prototype.showConfirmPage = function () {
-        var confirmPageView = new ConfirmPageView_1.ConfirmPageView(this.getRandomBoolean()); //on initialise la vue avec un boolean pour la confirmation (réussi/échec)
+        var confirmPageView = new ConfirmPageView_1.ConfirmPageView(this.getRandomBoolean(), this.panier); //on initialise la vue avec un boolean pour la confirmation (réussi/échec)
         confirmPageView.setController(new ConfirmPageController_1.ConfirmPageController(), this); //on set le controller de la vue
         confirmPageView.init(); //on affiche le contenu de la page
     };
@@ -155,6 +155,9 @@ var Main = /** @class */ (function () {
         else {
             this.showAdminPage(1); //sinon on affiche la page de gestion de produit pour l'admin
         }
+    };
+    Main.prototype.actualisePanierNumber = function () {
+        document.getElementById(Main.ID_PANIER_NUMBER_DIV).innerText = this.panier.produitList.size + '';
     };
     /**
      * constante qui permet de récupérer l'emplacement des images de produit du site

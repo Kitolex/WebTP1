@@ -16,9 +16,23 @@ var ConnexionView = /** @class */ (function () {
         // variable pour afficher  le formulaire de connexion
         var affichageFormulaireConnexionFinal = "";
         affichageFormulaireConnexionFinal +=
-            '<input id ="idUser" type="text" placeholder="Identifiant"><br>' +
-                '<input id="mdpUser" type="password" placeholder="Mot de passe"><br>' +
-                '<button id="connexionUser" type="button" class="btn btn-dark" >Connexion</button>';
+            '<div class="container">' +
+                '<div class="row"  style="background-color:lavender;">' +
+                '<div class="well" class="float-center">' +
+                '<form>' +
+                '<div class="form-group">' +
+                '<h7>Nom d\'utilisateur :</h7>' +
+                '<input id ="idUser" type="text" placeholder="Identifiant" class="form-control">' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<h7>Mot de passe :</h7>' +
+                '<input id="mdpUser" type="password" placeholder="Mot de passe" class="form-control">' +
+                '</div>' +
+                '</form>' +
+                '<button id="connexionUser" type="button" class="btn btn-primary btn-sm" >Connexion</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
         document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = affichageFormulaireConnexionFinal; // on applique html à la main div
         //-------------événement--------//
         //évenement du boutton de Connexion qui lance la fonction la connexion du controller

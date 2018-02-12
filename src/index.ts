@@ -169,7 +169,7 @@ export class Main{
      * Méthode qui permet d'avoir la confirmation si l'achat à réussi ou non
      */
     public showConfirmPage() {
-        let confirmPageView = new ConfirmPageView(this.getRandomBoolean());//on initialise la vue avec un boolean pour la confirmation (réussi/échec)
+        let confirmPageView = new ConfirmPageView(this.getRandomBoolean(),this.panier);//on initialise la vue avec un boolean pour la confirmation (réussi/échec)
         confirmPageView.setController(new ConfirmPageController(),this);//on set le controller de la vue
         confirmPageView.init();//on affiche le contenu de la page
     }
@@ -216,6 +216,11 @@ export class Main{
         }else{
             this.showAdminPage(1);//sinon on affiche la page de gestion de produit pour l'admin
         }
+    }
+
+
+    public actualisePanierNumber(){
+        document.getElementById(Main.ID_PANIER_NUMBER_DIV).innerText=this.panier.produitList.size+'';
     }
 
 

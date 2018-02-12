@@ -1,36 +1,344 @@
 .btnmenu {
-  margin-left: 10px;
+    margin-left: 10px;
+}
+
+.form-control {
+    position: center;
+}
+
+.taxe-panier-petit {
+    margin-right: 1000px;
+}
+
+.td-taxe {
+    border-bottom: solid black !important;
+    border : none;
+    font-size: 15px;
+}
+
+.th-taxe {
+    background: none;
+    color : #343a40;
+    border-bottom: solid black !important;
+    border : none;
+    font-size: 15px;
+}
+
+.td-taxe-vide {
+    background: none;
+    color : #343a40;
+    border-bottom: solid black !important;
+    border : none;
+    font-size: 15px;
 }
 
 .container {
-  max-width: 900px;
-  padding-top: 2%;
+    max-width: 1200px;
+    padding-top: 8px;
 }
 
 .jumbotron {
-  margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 .col {
-  padding-left: 0px;
+    padding-left: 0px;
 }
 
 .col-xs-9 {
-  padding-right: 1%;
+    padding-right: 8px
 }
 
 .text-center {
-  padding-top: 2%;
+    padding-top: 9px;
 }
 
 .row {
-  border-style: solid;
+    border-style: solid;
 }
 
 .img-responsive {
-  border-right: solid;
+    border-right: solid;
+}
+
+.img-decri-deta {
+    border-bottom: solid;
+}
+
+input {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.h5-prix {
+    margin-left: 30px;
 }
 
 h5 {
-  margin-top: 2%;
+    margin-left: 4px;
+    margin-right: 4px;
 }
+
+h6 {
+    margin-left: 4px;
+    margin-right: 4px;
+    text-align: justify;
+}
+
+h7 {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+p {
+    text-align: justify;
+}
+
+.col-xs-2 {
+    padding-left: 10px;
+}
+
+th {
+    border-collapse: collapse;
+    border: 1px solid;
+    background-color: #343a40;
+    color : white;
+    border-color: black;
+    padding: 8px;
+    text-align: center;
+}
+
+td {
+    border-collapse: collapse;
+    border: 1px solid;
+    border-color: black;
+    padding: 8px;
+    text-align: center;
+}
+
+table {
+    margin-bottom: 8px;
+    margin-left: 8px;
+    margin-top: 8px;
+}
+
+#ID-Trans {
+    margin-bottom: 6px;
+    font-size: large;
+    color: darkblue;
+    margin-left: 4px;
+}
+
+.usr-panier {
+    width: 50px;
+    margin: 0px;
+    border-radius: 0px;
+}
+
+.button-panier {
+    width: 30px;
+}
+
+.button-panier2 {
+    width: 30px;
+}
+
+.Date1 {
+    margin-top: 10px;
+}
+
+.btn-group-nombre {
+    text-align: center;
+}
+
+.raison-pas-payement {
+    color: darkblue;
+}
+
+.btn-sm {
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
+.img-tableau {
+    max-width: 50%;
+}
+
+#tabl-img {
+    border-collapse: collapse;
+    padding: 8px;
+    text-align: center;
+}
+
+#collapsibleNavbar {
+    float: left;
+}
+
+.fc1 {
+    width: 200px;
+    height: 38px;
+    position: center;
+}
+
+.fc2 {
+    width: content-box;
+}
+
+.fc3 {
+    width: 100px;
+    height: 38px;
+    position: center;
+}
+
+.fc4 {
+    width: 100px;
+    height: 38px;
+}
+
+.fc5 {
+    width: 100px;
+    height: 38px;
+}
+
+.float-center {
+    margin-left:auto !important;
+    margin-right:auto !important;
+}
+
+@media screen and (min-width: 600px) {
+    br {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .text-descri-detaille-admin {
+        text-align: center;
+        position: center;
+    }
+
+    .tabl-centre {
+        margin-left:auto !important;
+        margin-right:auto !important;
+    }
+    .fc1 {
+        width: 200px;
+        height: 38px;
+        position: center !important;
+        margin-left:auto !important;
+        margin-right:auto !important;
+    }
+
+    textarea {
+        margin-left: 5px;
+    }
+
+    .fc2 {
+        margin: auto; !important;
+        width: content-box;
+        position: center !important;
+
+    }
+
+    .fc3 {
+        width: 100px;
+        height: 38px;
+        position: center !important;
+        margin-left:auto !important;
+        margin-right:auto !important;
+    }
+
+    .fc4 {
+        position: center !important;
+        margin-left:auto !important;
+        margin-right:auto !important;
+    }
+
+    .fc5 {
+        position: center !important;
+        margin-left:auto !important;
+        margin-right:auto !important;
+    }
+
+    .form-control {
+        position: center !important;
+        margin-left:auto !important;
+        margin-right:auto !important;
+    }
+    .Date1 {
+        text-align: center;
+    }
+    .Transaction {
+        text-align: center;
+
+    }
+    th {
+        font-size: 13px;
+    }
+    td {
+        font-size: 13px;
+    }
+    .grand1 {
+        margin: 0px;
+    }
+    .form-group {
+        margin-right: 5px !important;
+        margin-left: 5px !important;
+    }
+    .well {
+        margin-right: 4px;
+    }
+    table {
+        margin-left: 0px;
+        margin-right: 4px;
+    }
+    .container {
+        display: block !important;
+        margin-left: 2px;
+    }
+    .row {
+        text-align: center;
+        display: block !important;
+        margin:0 auto !important;
+    }
+    .img-responsive {
+        border-bottom: solid;
+        border-left: solid;
+        position: center;
+    }
+    .col-xs-9 {
+        text-align: center;
+        position: center;
+        margin: 0px;
+        padding: 0px;
+    }
+    #tabl-img {
+        display: none;
+    }
+    #th-tabl-img {
+        display: none;
+    }
+    #sucess {
+        text-align: center;
+        display: block !important;
+        margin:0 auto !important;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .btnmenu {
+        margin-left: 0px;
+        font-size: 14px;
+    }
+    .btn-petit {
+        font-size: 14px;
+        margin-left: 0px;
+    }
+    .btn-dark {
+        font-size: 14px;
+    }
+}
+
+

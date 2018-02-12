@@ -34,15 +34,18 @@ var ProduitUpdtateView = /** @class */ (function () {
         var affichageProduitUpdateFinal = '<div class="container">' +
             '<div class="row"  style="background-color:lavender;">' +
             '<div class="col-xs-9" >' +
-            '<img src="' + this.produit.srcImage + '" class="img-responsive">' +
+            '<img src="' + this.produit.srcImage + '" class="img-responsive img-decri-deta">' +
             '</div>' +
             '<div class="col">' +
             '<div class="well" class="float-right">' +
             '<div class="text">' +
-            '<input id="titre" value="' + this.produit.nom + '"><br>' +
-            '<textarea id="description" rows="4" cols="50">' + this.produit.description + '</textarea><br>' +
-            '<input id="prix" value="' + this.produit.prix + '"><br>' +
-            '<button id="modifier" type="button" class="btn btn-primary btn-sm">Modifer</button>' +
+            '<h5>Titre de l\'arme :</h5>' +
+            '<input class="form-control fc1" rows="1" id="titre" value="' + this.produit.nom + '">' +
+            '<h5>Description de l\'arme :</h5>' +
+            '<textarea class="form-control fc2" rows="3" id="description" rows="4" cols="50">' + this.produit.description + '</textarea>' +
+            '<h5>Prix de l\'arme :</h5>' +
+            '<input class="form-control fc3" rows="1" id="prix" value="' + this.produit.prix + '">' +
+            '<button  id="modifier" type="button" class="btn btn-primary btn-sm">Modifer</button>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -51,7 +54,7 @@ var ProduitUpdtateView = /** @class */ (function () {
             '<div class="text-center">' +
             '<div class="btn-group">' +
             '<button id="retourCatalogue" type="button" class="btn btn-dark">Retour au catalogue</button>' +
-            '<div>' +
+            '</div>' +
             '</div>';
         document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = affichageProduitUpdateFinal; //applique html à la main div
         //-------------événement--------//

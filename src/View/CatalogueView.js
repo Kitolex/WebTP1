@@ -38,12 +38,18 @@ var CatalogueView = /** @class */ (function () {
                     '<h5>' + this.catalogue.getProduit(i).nom + '</h5>' +
                     '<h6 class="descri arme">' + this.catalogue.getProduit(i).description.slice(0, this.catalogue.MAX_CHAR_DESCRIPTION) + '...</h6>' +
                     '<button id ="description' + this.catalogue.getProduit(i).nom + '" type="button" class="btn btn-link"> En savoir plus</button>' +
-                    '<h5>' + this.catalogue.getProduit(i).prix + ' $</h5> ' +
-                    '<button id="panier' + this.catalogue.getProduit(i).nom + '" type="button" class="btn btn-primary btn-sm">Ajouter au Panier</button>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>';
+                    '<h5>' + this.catalogue.getProduit(i).prix + ' $</h5> ';
+            if (this.controller.existProduitPanier(this.catalogue.getProduit(i))) {
+                affichageCatalogueFinal += this.controller.setNbPanier(this.catalogue.getProduit(i));
+            }
+            else {
+                affichageCatalogueFinal += '<button id="panier' + this.catalogue.getProduit(i).nom + '" type="button" class="btn btn-primary btn-sm">Ajouter au Panier</button>';
+            }
+            affichageCatalogueFinal += '<h5 id="panierNombre' + this.catalogue.getProduit(i).nom + '"></h5> ' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
         }
         //--Boutton catalgue--
         affichageCatalogueFinal += '<div class="text-center">' +
@@ -68,11 +74,12 @@ var CatalogueView = /** @class */ (function () {
         affichageCatalogueFinal += '<button type="button" class="btn btn-dark" id="SuivantButton">></button>';
         //boutton pour aller sur la dernière page
         affichageCatalogueFinal += '<button type="button" class="btn btn-dark" id="FinButton">>></button>';
-        affichageCatalogueFinal += '</div></div>'; //fermet les div des bouttons
+        affichageCatalogueFinal += '</div></div>'; //fermer les div des bouttons
         document.getElementById(index_1.Main.ID_MAIN_DIV).innerHTML = affichageCatalogueFinal; // on applique le html
         var _loop_1 = function (i) {
-            document.getElementById("panier" + this_1.catalogue.getProduit(i).nom).addEventListener("click", function (e) { return _this.controller.buttonAddPanier(_this.catalogue.getProduit(i)); });
+            document.getElementById("panier" + this_1.catalogue.getProduit(i).nom).addEventListener("click", function (e) { return _this.controller.buttonAddPanier(_this.catalogue.getProduit(i), document.getElementById("panier" + _this.catalogue.getProduit(i).nom)); });
             document.getElementById("description" + this_1.catalogue.getProduit(i).nom).addEventListener("click", function (e) { return _this.controller.buttonDescriptionDetaille(_this.catalogue.getProduit(i)); });
+            document.getElementById("panierNombre" + this_1.catalogue.getProduit(i).nom).setAttribute("visible", "false"); // on désactive le boutton de la page actuel
         };
         var this_1 = this;
         //pour chaque porduit on met un evenement pour l'ajouter au panier et voir la description
